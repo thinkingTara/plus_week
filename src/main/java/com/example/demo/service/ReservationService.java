@@ -34,7 +34,7 @@ public class ReservationService {
         this.rentalLogService = rentalLogService;
     }
 
-    // TODO: 1. 트랜잭션 이해
+    // TODO: 1. 트랜잭션 이해 -> 하나의 트랜젝션으로 처리하기 위해 @Transactional 추가
     @Transactional
     public void createReservation(Long itemId, Long userId, LocalDateTime startAt, LocalDateTime endAt) {
         // 쉽게 데이터를 생성하려면 아래 유효성검사 주석 처리
