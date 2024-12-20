@@ -9,14 +9,17 @@ import com.example.demo.exception.ReservationConflictException;
 import com.example.demo.repository.ItemRepository;
 import com.example.demo.repository.ReservationRepository;
 import com.example.demo.repository.UserRepository;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
+@Slf4j
 @Service
 public class ReservationService {
     private final ReservationRepository reservationRepository;
@@ -52,10 +55,13 @@ public class ReservationService {
         rentalLogService.save(rentalLog);
     }
 
-    // TODO: 3. N+1 문제
+    // TODO: 3. N+1 문제 -> Reservation 엔터티에 Fetch.lazy추가 /  @Query의 Join Fetch 추가
     public List<ReservationResponseDto> getReservations() {
-        List<Reservation> reservations = reservationRepository.findAll();
-
+        log.info("?????");
+        List<Reservation> reservations = reservationRepository.findUserNickNameAndItemName();
+        log.info("reservations : {} ", reservations);
+//        List<Reservation> reservations = reservationRepository.findAll();
+//
         return reservations.stream().map(reservation -> {
             User user = reservation.getUser();
             Item item = reservation.getItem();
