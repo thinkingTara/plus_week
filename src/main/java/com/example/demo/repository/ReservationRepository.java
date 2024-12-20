@@ -35,4 +35,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             "JOIN FETCH r.item"
     )
     List<Reservation> findUserNickNameAndItemName();
+
+
+
 }
